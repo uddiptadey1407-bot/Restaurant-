@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Restaurant Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+padding:20px;
+}
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:400px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+select, input{
+width:90%;
+padding:10px;
+margin:10px 0;
+}
+button{
+background:#28a745;
+color:white;
+padding:12px;
+border:none;
+width:95%;
+font-size:16px;
+border-radius:5px;
+}
+.total{
+font-size:20px;
+margin:10px;
+font-weight:bold;
+}
+.qr{
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🍕 Order Food</h2>
+
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="text" id="phone" placeholder="Phone Number" required>
+<input type="text" id="address" placeholder="Delivery Address" required>
+
+<select id="item" onchange="calculate()">
+<option value="200">Pizza - ₹200</option>
+<option value="120">Burger - ₹120</option>
+<option value="150">Pasta - ₹150</option>
+</select>
+
+<select id="qty" onchange="calculate()">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+
+<select id="payment">
+<option value="Cash on Delivery">Cash on Delivery</option>
+<option value="UPI Payment">UPI Payment</option>
+</select>
+
+<div class="total">
+Total: ₹ <span id="total">200</span>
+</div>
+
+<button onclick="orderNow()">Order on WhatsApp</button>
+
+<div class="qr">
+<h3>Pay via UPI</h3>
+<p>UPI ID: 9181831855@fam</p>
+<img src="your-qr-image.jpg" width="200">
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+var price = document.getElementById("item").value;
+var qty = document.getElementById("qty").value;
+var total = price * qty;
+document.getElementById("total").innerText = total;
+}
+
+function orderNow(){
+var name = document.getElementById("name").value;
+var phone = document.getElementById("phone").value;
+var address = document.getElementById("address").value;
+var itemText = document.getElementById("item").options[document.getElementById("item").selectedIndex].text;
+var qty = document.getElementById("qty").value;
+var payment = document.getElementById("payment").value;
+var total = document.getElementById("total").innerText;
+
+var message = "New Order:%0A"
++ "Name: " + name + "%0A"
++ "Phone: " + phone + "%0A"
++ "Address: " + address + "%0A"
++ "Item: " + itemText + "%0A"
++ "Quantity: " + qty + "%0A"
++ "Total: ₹" + total + "%0A"
++ "Payment: " + payment;
+
+var whatsapp = "https://wa.me/9181831855text=" + message;
+
+window.open(whatsapp, '_blank');
+}
+
+</script>
+
+</body>
+</html>
